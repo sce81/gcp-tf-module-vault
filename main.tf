@@ -43,6 +43,7 @@ resource "google_compute_region_instance_group_manager" "vault" {
         type = "PROACTIVE"
         minimal_action = "REPLACE"
     }
+    
   # Restarting a Vault server has an important consequence: The Vault server has to be manually unsealed again. Therefore,
   # the update strategy used to roll out a new GCE Instance Template must be a rolling update. But since Terraform does
   # not yet support ROLLING_UPDATE, such updates must be manually rolled out for now.
