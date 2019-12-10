@@ -42,9 +42,6 @@ resource "google_compute_region_instance_group_manager" "vault" {
     update_policy{
         type = "PROACTIVE"
         minimal_action = "REPLACE"
-        max_surge_percent = 20
-        max_unavailable_fixed = 2
-        min_ready_sec = 50
     }
   # Restarting a Vault server has an important consequence: The Vault server has to be manually unsealed again. Therefore,
   # the update strategy used to roll out a new GCE Instance Template must be a rolling update. But since Terraform does
@@ -272,7 +269,7 @@ resource "google_storage_bucket_iam_binding" "external_service_acc_binding" {
 
 resource "google_storage_bucket_iam_binding" "vault_cluster_admin_service_acc_binding" {
   count  = var.create_service_account
-  bucket = "${var.cluster_name}-backend-storage"
+  bucket = "${var.project}-${var.cluster_name}-backend-storage"
   role   = "roles/storage.objectAdmin"
 
   members = [
