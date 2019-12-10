@@ -237,7 +237,7 @@ resource "google_compute_firewall" "allow_inbound_health_check" {
 }
 
 resource "google_storage_bucket" "vault_storage_backend" {
-  name          = "${var.cluster_name}-backend-storage"
+  name          = "${var.project}-${var.cluster_name}-backend-storage"
   location      = var.backend_location
   storage_class = var.storage_class
   project       = var.project
